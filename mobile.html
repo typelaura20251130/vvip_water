@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F6F8FA">
+<title>靜湖｜紅外線鹼性離子水</title>
+<meta name="description" content="靜湖紅外線鹼性離子水，微鹼、口感柔順。預約專人介紹，免費體驗。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mist:#F6F8FA; --ink:#1F2A33; --ink-soft:#56636E; --lake:#8FA3B5; --dawn:#F0E4D4;
+    --glass:rgba(255,255,255,.55); --glass-edge:rgba(255,255,255,.8);
+    --serif:"Noto Serif TC",serif; --sans:"Noto Sans TC",system-ui,sans-serif;
+    --r-xl:30px; --r-lg:24px; --r-md:18px; --r-sm:12px; --r-pill:999px;
+    --safe-b:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{background:var(--mist);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--mist);-webkit-font-smoothing:antialiased;line-height:1.75;font-size:16px}
+  button,input,select,textarea{font:inherit;color:inherit}
+  button{cursor:pointer;border:0;background:none}
+  :focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
+  .glass{background:var(--glass);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border:1px solid var(--glass-edge);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 14px 40px -18px rgba(60,80,100,.3)}
+
+  /* hero */
+  .track{position:relative;height:440vh}
+  .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+  canvas{position:absolute;inset:0;width:100%;height:100%;display:block;
+    -webkit-mask-image:linear-gradient(transparent 21%,#000 38%,#000 80%,transparent 94%);mask-image:linear-gradient(transparent 21%,#000 38%,#000 80%,transparent 94%)}
+  .veil{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% 56%,rgba(246,248,250,0) 50%,rgba(246,248,250,.6) 85%,var(--mist) 100%)}
+  .halo{position:absolute;border-radius:50%;pointer-events:none;filter:blur(50px)}
+  .halo.core{width:70vw;height:60vh;left:50%;top:52%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,0));mix-blend-mode:screen;opacity:0}
+  .halo.dawn{width:120vw;height:60vh;right:-50vw;top:-20vh;background:radial-gradient(closest-side,var(--dawn),rgba(240,228,212,0))}
+  .chapter{position:absolute;left:22px;right:22px;top:calc(56px + env(safe-area-inset-top,0px));opacity:0;pointer-events:none}
+  .chapter h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.7rem,8vw,2.2rem);letter-spacing:.14em;line-height:1.45}
+  .chapter p{margin-top:8px;font-size:.92rem;color:var(--ink-soft);letter-spacing:.04em;max-width:20em}
+  .meter{position:absolute;right:16px;top:50%;transform:translateY(-50%);height:26vh;width:30px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.7rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .meter .bar{flex:1;width:2px;border-radius:2px;background:rgba(31,42,51,.14);overflow:hidden;position:relative}
+  .meter .bar b{position:absolute;left:0;right:0;top:0;height:0;background:var(--ink)}
+
+
+  .btn{display:block;width:100%;min-height:52px;padding:15px;border-radius:var(--r-md);background:var(--ink);color:#fff;font-size:.98rem;letter-spacing:.14em;text-align:center;text-decoration:none}
+  .btn:active{transform:scale(.98)}
+
+  /* sections */
+  .section{padding:72px 16px 8px}
+  .head{margin:0 6px 24px}
+  .head h2{font-family:var(--serif);font-weight:300;font-size:1.9rem;letter-spacing:.12em;line-height:1.35}
+  .head p{margin-top:8px;color:var(--ink-soft);font-size:.95rem}
+  .grid{display:grid;gap:12px}
+  .tile{border-radius:var(--r-lg);padding:24px 22px}
+  .tile h3{font-family:var(--serif);font-weight:400;font-size:1.12rem;letter-spacing:.12em;margin-bottom:8px}
+  .tile p{color:var(--ink-soft);font-size:.94rem}
+  .tile p + p{margin-top:.8em}
+
+  .story{padding:0;overflow:hidden;border-radius:var(--r-xl)}
+  .story figure{aspect-ratio:4/5}
+  .story img{width:100%;height:100%;object-fit:cover;display:block}
+  .story .letter{padding:26px 22px 28px}
+  .story .letter p{font-family:var(--serif);font-size:1rem;line-height:2;color:var(--ink)}
+  .story .letter p + p{margin-top:1em}
+  .story .sign{margin-top:20px;font-size:.84rem;color:var(--ink-soft);letter-spacing:.08em}
+
+
+  .stat{font-family:var(--serif);font-weight:300;font-size:2.4rem;line-height:1.2;margin-bottom:6px;font-variant-numeric:tabular-nums}
+  .stat small{font-family:var(--sans);font-size:.88rem;color:var(--ink-soft);margin-left:.3em}
+  .note{border-radius:var(--r-md);padding:16px 18px;font-size:.82rem;color:var(--ink-soft);background:rgba(255,255,255,.4);border:1px dashed rgba(86,99,110,.3)}
+
+  .plan{display:flex;flex-direction:column}
+  .plan .what{font-size:.86rem;color:var(--ink-soft);margin-bottom:14px}
+  .plan .amount{font-family:var(--serif);font-weight:300;font-size:2.1rem;line-height:1.2;font-variant-numeric:tabular-nums}
+  .plan .amount span{font-family:var(--sans);font-size:.8rem;color:var(--ink-soft);margin-right:.3em}
+  .plan .per{font-size:.84rem;color:var(--ink-soft);margin:4px 0 18px}
+  .plan ul{list-style:none;display:grid;gap:6px;margin-bottom:22px}
+  .plan li{font-size:.92rem;padding-left:18px;position:relative}
+  .plan li::before{content:"";position:absolute;left:0;top:.72em;width:7px;height:7px;border-radius:50%;background:var(--lake)}
+  .plan.featured{background:rgba(31,42,51,.95);color:#fff;border:0}
+  .plan.featured .what,.plan.featured .per,.plan.featured .amount span{color:rgba(255,255,255,.7)}
+  .plan.featured li::before{background:var(--dawn)}
+  .plan.featured .btn{background:#fff;color:var(--ink)}
+  .tag{display:inline-block;align-self:flex-start;font-size:.74rem;padding:3px 12px;border-radius:var(--r-pill);background:var(--dawn);color:var(--ink);margin-bottom:10px}
+
+  /* pricing carousel */
+  .carousel{margin:0 -16px}
+  .c-track{position:relative;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 16px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .c-track::-webkit-scrollbar{display:none}
+  .c-track .plan{flex:0 0 84%;scroll-snap-align:center}
+  .c-controls{display:flex;align-items:center;gap:14px;padding:16px 22px 0}
+  .c-arrow{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:var(--ink);background:rgba(255,255,255,.75);border:1px solid rgba(31,42,51,.14);transition:opacity .2s}
+  .c-arrow:disabled{opacity:.3;cursor:default}
+  .c-count{font-family:var(--serif);font-size:.92rem;letter-spacing:.08em;font-variant-numeric:tabular-nums;color:var(--ink)}
+  #planTotal{color:var(--ink-soft)}
+  .c-line{flex:1;height:1px;background:rgba(31,42,51,.16);position:relative}
+  .c-line b{position:absolute;top:-.5px;left:0;height:2px;width:33.34%;background:var(--ink);transition:left .3s}
+  .c-hint{text-align:center;font-size:.78rem;color:var(--ink-soft);letter-spacing:.1em;margin-top:12px}
+
+  .trial{border-radius:var(--r-xl);padding:28px 20px}
+  .trial h3{font-size:1.5rem;line-height:1.5;margin-bottom:10px}
+  .trial .lead{color:var(--ink-soft)}
+  .steps{list-style:none;margin:22px 0 26px;display:grid;gap:14px;counter-reset:s}
+  .steps li{display:grid;grid-template-columns:30px 1fr;gap:12px;font-size:.94rem;counter-increment:s}
+  .steps li::before{content:counter(s);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#fff;font-size:.8rem;box-shadow:0 4px 12px -6px rgba(60,80,100,.4)}
+  .steps b{font-weight:500;display:block}
+  .steps span{color:var(--ink-soft);font-size:.86rem}
+  form{display:grid;gap:14px}
+  .field{display:grid;gap:6px}
+  .field label{font-size:.86rem;color:var(--ink-soft)}
+  .field input,.field select,.field textarea{width:100%;min-height:50px;padding:13px 16px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.9);background:rgba(255,255,255,.75);font-size:16px;outline:none;appearance:none}
+  .field select{background-image:linear-gradient(45deg,transparent 50%,var(--ink-soft) 50%),linear-gradient(135deg,var(--ink-soft) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 15px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+  .field textarea{min-height:90px;resize:vertical}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--lake);box-shadow:0 0 0 4px rgba(143,163,181,.22)}
+  .field input:user-invalid{border-color:#B5675A}
+  .times{display:flex;flex-wrap:wrap;gap:8px}
+  .times label{position:relative}
+  .times input{position:absolute;opacity:0;pointer-events:none}
+  .times span{display:block;padding:10px 16px;min-height:44px;border-radius:var(--r-pill);background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.9);font-size:.9rem;color:var(--ink)}
+  .times input:checked + span{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .consent{display:flex;gap:10px;align-items:flex-start;font-size:.85rem;color:var(--ink-soft)}
+  .consent input{width:20px;height:20px;margin-top:.15em;flex:none;accent-color:var(--ink)}
+  .done{display:none;padding:24px 20px;border-radius:var(--r-md);background:rgba(255,255,255,.7)}
+  .done h4{font-family:var(--serif);font-weight:400;font-size:1.2rem;letter-spacing:.1em;margin-bottom:6px}
+  .done p{color:var(--ink-soft)}
+  form.sent > :not(.done){display:none}
+  form.sent .done{display:block}
+
+  .faq{display:grid;gap:10px}
+  .faq details{border-radius:var(--r-md);padding:0 20px}
+  .faq summary{cursor:pointer;list-style:none;padding:18px 0;min-height:56px;font-size:.98rem;display:flex;justify-content:space-between;gap:14px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-size:1.3rem;line-height:1;color:var(--ink-soft);transition:transform .25s}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq details p{padding:0 0 20px;color:var(--ink-soft);font-size:.94rem}
+
+  footer{padding:64px 24px calc(48px + var(--safe-b));text-align:center;font-size:.8rem;color:var(--ink-soft);letter-spacing:.06em;line-height:2}
+  footer a{color:var(--ink-soft)}
+
+  .loader{position:fixed;inset:0;z-index:40;display:grid;place-items:center;background:var(--mist);transition:opacity .8s}
+  .loader.gone{opacity:0;pointer-events:none}
+  .loader div{font-family:var(--serif);letter-spacing:.4em;font-size:.95rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+
+  @media (min-width:700px){
+    .section{max-width:640px;margin:0 auto}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .loader,.faq summary::after,.c-line b{transition:none}
+  }
+
+  /* origin: full-bleed deep navy band, centered, gold headline */
+  .origin-band{position:relative;overflow:hidden;margin-top:14vh;padding:96px 24px;text-align:center;color:#fff;
+    background:radial-gradient(ellipse 70% 60% at 50% 45%,#0B2556 0%,#061637 48%,#020A1A 100%)}
+  .origin-band::before,.origin-band::after{content:"";position:absolute;inset:0;pointer-events:none}
+  /* fine star dust */
+  .origin-band::before{opacity:.55;
+    background-image:radial-gradient(1px 1px at 12% 18%,rgba(255,255,255,.9),transparent),radial-gradient(1px 1px at 78% 12%,rgba(255,255,255,.7),transparent),
+      radial-gradient(1.5px 1.5px at 64% 72%,rgba(232,211,162,.8),transparent),radial-gradient(1px 1px at 30% 82%,rgba(255,255,255,.6),transparent),
+      radial-gradient(1px 1px at 88% 58%,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 22% 48%,rgba(232,211,162,.6),transparent),
+      radial-gradient(1px 1px at 48% 8%,rgba(255,255,255,.5),transparent),radial-gradient(1px 1px at 92% 88%,rgba(255,255,255,.5),transparent);
+    background-size:520px 520px}
+  /* top & bottom shade */
+  .origin-band::after{background:linear-gradient(#020A1A,rgba(2,10,26,0) 18%,rgba(2,10,26,0) 82%,#020A1A)}
+  .origin-glow{position:absolute;left:50%;top:42%;width:min(900px,120vw);height:min(560px,80vh);transform:translate(-50%,-50%);pointer-events:none;
+    background:radial-gradient(closest-side,rgba(201,169,110,.20),rgba(120,150,200,.10) 55%,rgba(0,0,0,0));filter:blur(20px)}
+  .origin-inner{position:relative;z-index:1;max-width:40em;margin:0 auto}
+  .origin-band h2{font-family:var(--serif);font-weight:400;font-size:1.9rem;letter-spacing:.18em;line-height:1.4;
+    background:linear-gradient(180deg,#F1DFB2 0%,#D4B47A 55%,#B48E55 100%);-webkit-background-clip:text;background-clip:text;color:#D4B47A;-webkit-text-fill-color:transparent;
+    text-shadow:0 0 40px rgba(212,180,122,.25)}
+  .origin-rule{display:block;width:44px;height:1px;margin:24px auto;background:linear-gradient(90deg,rgba(212,180,122,0),#D4B47A,rgba(212,180,122,0))}
+  .origin-band p{font-family:var(--serif);font-weight:300;font-size:.98rem;line-height:2.1;letter-spacing:.08em;color:rgba(255,255,255,.88)}
+  .origin-band p + p{margin-top:1.6em}
+  .origin-band .sign{margin-top:2.6em;font-size:.84rem;letter-spacing:.3em;color:rgba(212,180,122,.85)}
+  .origin-band br{display:none}
+
+  .plan-img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px;margin-bottom:18px}
+  .plan .amount.amount-text{font-size:1.7rem}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader"><div id="loadText">0%</div></div>
+
+<main id="top">
+  <section class="track" id="track">
+    <div class="stage">
+      <div class="halo dawn" id="haloDawn"></div>
+      <canvas id="seq" aria-label="一瓶靜湖鹼性離子水從湖面升起" role="img"></canvas>
+      <div class="veil"></div>
+      <div class="halo core" id="haloCore"></div>
+
+      <div class="chapter" data-from="0" data-to=".2">
+        <h2 data-c="hero.chapters.0.title">黎明前<br>湖面只有風</h2>
+        <p data-c="hero.chapters.0.text">滑動畫面，看它從水裡浮上來。</p>
+      </div>
+      <div class="chapter" data-from=".22" data-to=".46">
+        <h2 data-c="hero.chapters.1.title">一瓶水<br>從湖心升起</h2>
+        <p data-c="hero.chapters.1.text">我們想做一瓶，讓人願意多喝幾口的水。</p>
+      </div>
+      <div class="chapter" data-from=".48" data-to=".72">
+        <h2 data-c="hero.chapters.2.title">微鹼<br>柔順好入口</h2>
+        <p data-c="hero.chapters.2.text">經紅外線處理的鹼性離子水，pH 值約 9，入口圓潤不澀。</p>
+      </div>
+      <div class="chapter" data-from=".74" data-to="1.01">
+        <h2 data-c="hero.chapters.3.title">每天<br>好好喝水</h2>
+        <p data-c="hero.chapters.3.text">預約專人介紹，先喝過再決定。</p>
+      </div>
+
+      <div class="meter" aria-hidden="true"><span id="pct">0</span><div class="bar"><b id="bar"></b></div><span>100</span></div>
+    </div>
+  </section>
+
+  <!-- ============ origin story ============ -->
+  <section class="origin-band" id="story">
+    <div class="origin-glow" aria-hidden="true"></div>
+    <div class="origin-inner">
+      <h2 data-c="origin.title">一瓶最適合你的水</h2>
+      <i class="origin-rule" aria-hidden="true"></i>
+      <!-- 請替換成你們真實的品牌故事 -->
+      <div data-render="paragraphs" data-src="origin.paragraphs">
+      <p>我們身邊有很多人，一整天只喝了幾口水。<br>不是不知道要喝，而是忙起來就忘了，<br>或是覺得白開水沒味道、喝不下。</p>
+      <p>所以我們想做的不是一瓶「神奇的水」，<br>而是一瓶讓人願意拿起來、一口接一口喝下去的水。<br>我們花了很長時間調整水源、過濾和紅外線處理的流程，<br>讓它入口更圓潤、沒有雜味。</p>
+      <p>取名「靜湖」，是希望你喝水的那一刻，<br>也能像清晨的湖面一樣，安靜下來一下。</p>
+      </div>
+      <div class="sign" data-c="origin.sign">靜湖團隊</div>
+    </div>
+  </section>
+
+  <!-- ============ benefits ============ -->
+  <section class="section" id="benefits">
+    <div class="head">
+      <h2 data-c="benefits.title">為什麼選擇靜湖？</h2>
+      <p data-c="benefits.intro">鹼性離子水是 pH 值高於 7 的飲用水。對身體最實在的好處，是讓你更願意把每天該喝的水喝足。</p>
+    </div>
+    <div class="grid">
+      <article class="tile b-wide glass">
+        <h3 data-c="benefits.main.title">好入口，自然喝得多</h3>
+        <div data-render="paragraphs" data-src="benefits.main.paragraphs">
+        <p>微鹼的水口感較圓潤，少了一般水的生澀感。許多人覺得白開水難以下嚥，換成順口的水之後，一天下來喝的量自然增加。</p>
+        <p>水分占成人體重約六成，體溫調節、養分運送都需要水。把水喝足，是照顧身體最基本也最容易做到的一件事。</p>
+        </div>
+      </article>
+      <article class="tile b-narrow glass">
+        <div class="stat"><span data-c="benefits.ph.value">9.0</span><small data-c="benefits.ph.range">± 0.5</small></div>
+        <h3 data-c="benefits.ph.title">pH 值</h3>
+        <p data-c="benefits.ph.text">每批出廠前檢測，數值標示於瓶身。</p>
+      </article>
+      <article class="tile b-third glass">
+        <h3 data-c="benefits.items.0.title">運動、流汗後補水</h3>
+        <p data-c="benefits.items.0.text">運動或天熱流汗後，身體需要補充流失的水分。冰過後依然清爽，適合大口補充。</p>
+      </article>
+      <article class="tile b-third glass">
+        <h3 data-c="benefits.items.1.title">紅外線處理</h3>
+        <!-- 請填入你們實際的紅外線處理方式 -->
+        <p data-c="benefits.items.1.text">水在裝瓶前經過紅外線照射處理，搭配多道過濾，讓口感更乾淨、沒有雜味。</p>
+      </article>
+      <article class="tile b-third glass">
+        <h3 data-c="benefits.items.2.title">每批檢驗</h3>
+        <!-- 請填入實際的檢驗單位與項目 -->
+        <p data-c="benefits.items.2.text">每批水送交第三方實驗室，依飲用水標準檢驗，報告可向專人索取。</p>
+      </article>
+      <p class="note" data-c="benefits.note">本產品為飲用水，不具醫療效能，無法取代藥物或治療。有腎臟疾病或其他健康狀況、需控制飲水量者，飲用前請先諮詢醫師。</p>
+    </div>
+  </section>
+
+  <!-- ============ pricing ============ -->
+  <section class="section" id="pricing">
+    <div class="head">
+      <h2 data-c="pricing.title">價格方案</h2>
+      <p data-c="pricing.intro">全台本島免運。第一次購買前，可以先預約免費體驗。</p>
+    </div>
+    <!-- 價格為範例，請替換成實際售價 -->
+    <div class="carousel" role="region" aria-roledescription="carousel" aria-label="價格方案">
+      <div class="c-track" id="planTrack" data-render="plans" data-src="pricing.plans">
+      <article class="tile plan glass">
+        <h3>單箱購買</h3>
+        <div class="what">600 ml × 24 瓶</div>
+        <div class="amount"><span>NT$</span>1,200</div>
+        <div class="per">每瓶 NT$ 50</div>
+        <ul>
+          <li>想先試喝看看的人</li>
+          <li>全台本島免運</li>
+          <li>3–5 個工作天到貨</li>
+        </ul>
+        <a class="btn" href="#trial" data-plan-link="single">選擇單箱購買</a>
+      </article>
+      <article class="tile plan featured">
+        <span class="tag">最多人選擇</span>
+        <h3>每月定期配送</h3>
+        <div class="what">每月 2 箱，共 48 瓶</div>
+        <div class="amount"><span>NT$</span>2,160</div>
+        <div class="per">每月，平均每瓶 NT$ 45（九折）</div>
+        <ul>
+          <li>每月固定日期送到家</li>
+          <li>可隨時調整數量或暫停</li>
+          <li>專人定期關心飲用狀況</li>
+        </ul>
+        <a class="btn" href="#trial" data-plan-link="monthly">選擇每月配送</a>
+      </article>
+      <article class="tile plan glass">
+        <h3>企業與辦公室</h3>
+        <div class="what">依人數與用量規劃</div>
+        <div class="amount amount-text">專人報價</div>
+        <div class="per">10 箱以上享量販價</div>
+        <ul>
+          <li>辦公室、診所、健身房</li>
+          <li>可搭配會議與活動用水</li>
+          <li>開立統一發票</li>
+        </ul>
+        <a class="btn" href="#trial" data-plan-link="business">洽詢企業方案</a>
+      </article>
+    </div>
+      <div class="c-controls">
+        <button class="c-arrow" type="button" id="planPrev" aria-label="上一個方案"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <span class="c-count" id="planNow" aria-live="polite">01</span>
+        <span class="c-line"><b id="planBar"></b></span>
+        <span class="c-count" id="planTotal">03</span>
+        <button class="c-arrow" type="button" id="planNext" aria-label="下一個方案"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      <p class="c-hint">左右滑動，查看其他方案</p>
+    </div>
+  </section>
+
+  <!-- ============ trial / CTA ============ -->
+  <section class="section" id="trial">
+    <div class="grid">
+      <div class="tile trial glass">
+        <div>
+          <h3 data-c="trial.title">立即體驗<br>由專人為您介紹</h3>
+          <p class="lead" data-c="trial.lead">留下聯絡方式，我們會安排專人與你聯繫，說明產品與方案，並寄送體驗瓶讓你先喝喝看。</p>
+          <ol class="steps" data-render="steps" data-src="trial.steps">
+            <li><div><b>填寫表單</b><span>約 1 分鐘</span></div></li>
+            <li><div><b>專人來電說明</b><span>一個工作天內，依你方便的時段聯繫</span></div></li>
+            <li><div><b>收到體驗瓶</b><span>免費寄送 2 瓶到府，喝過再決定</span></div></li>
+          </ol>
+        </div>
+
+        <form id="trialForm" novalidate>
+          <div class="field">
+            <label for="f-name">姓名</label>
+            <input id="f-name" name="name" autocomplete="name" required placeholder="王小明">
+          </div>
+          <div class="field">
+            <label for="f-phone">手機號碼</label>
+            <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required pattern="09\d{2}-?\d{3}-?\d{3}" placeholder="0912-345-678">
+          </div>
+          <div class="field">
+            <label for="f-line">LINE ID（選填）</label>
+            <input id="f-line" name="line" placeholder="方便用 LINE 聯絡請填寫">
+          </div>
+          <div class="field">
+            <label for="f-plan">想了解的方案</label>
+            <select id="f-plan" name="plan" data-render="plan-options" data-src="pricing.plans">
+              <option value="single">單箱購買</option>
+              <option value="monthly">每月定期配送</option>
+              <option value="business">企業與辦公室</option>
+              <option value="unsure">還不確定，想先聽介紹</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label id="t-label">方便聯絡的時段</label>
+            <div class="times" role="group" aria-labelledby="t-label">
+              <label><input type="checkbox" name="time" value="morning"><span>上午 9–12 點</span></label>
+              <label><input type="checkbox" name="time" value="afternoon" checked><span>下午 1–6 點</span></label>
+              <label><input type="checkbox" name="time" value="evening"><span>晚上 6–9 點</span></label>
+            </div>
+          </div>
+          <div class="field full">
+            <label for="f-msg">想詢問的問題（選填）</label>
+            <textarea id="f-msg" name="message" placeholder="例如：家裡有長輩、每天大約喝多少水"></textarea>
+          </div>
+          <label class="consent"><input type="checkbox" name="consent" required> 我同意靜湖使用以上資料與我聯繫，資料不會提供給第三方。</label>
+          <button class="btn" type="submit">送出，預約專人介紹</button>
+          <div class="done" role="status" aria-live="polite">
+            <h4 data-c="trial.successTitle">已收到你的預約</h4>
+            <p data-c="trial.successText">專人會在一個工作天內，依你選的時段來電。體驗瓶會在確認地址後寄出。</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ faq ============ -->
+  <section class="section" id="faq">
+    <div class="head">
+      <h2 data-c="faq.title">常見問題</h2>
+      <p data-c="faq.intro">還有其他問題，也可以在表單中留言。</p>
+    </div>
+    <div class="grid">
+      <div class="faq" data-render="faq" data-src="faq.items">
+        <details class="glass">
+          <summary>鹼性離子水和一般礦泉水有什麼不同？</summary>
+          <p>主要差在 pH 值與口感。一般飲用水 pH 值約在 6.5–8.5 之間，靜湖的 pH 值約 9，喝起來比較圓潤。兩者都能補充水分，選你喝得下、喝得多的就好。</p>
+        </details>
+        <details class="glass">
+          <summary>可以每天喝嗎？一天喝多少？</summary>
+          <p>可以當作日常飲用水。一天喝多少因人而異，和體重、活動量、天氣有關，平常少量多次地喝即可。若醫師有限制飲水量，請依醫囑。</p>
+        </details>
+        <details class="glass">
+          <summary>開瓶後要多久喝完？</summary>
+          <p>開瓶後建議冷藏，並在 24 小時內喝完。未開封請存放於陰涼處，避免陽光直射。</p>
+        </details>
+        <details class="glass">
+          <summary>定期配送可以暫停或取消嗎？</summary>
+          <p>可以。在下次出貨前 5 天告知專人，就能調整數量、暫停或取消，不收任何費用。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span data-c="footer.text">靜湖 紅外線鹼性離子水<br>本產品為飲用水，不具醫療效能。</span><br>
+  <a href="index.html?desktop">查看電腦版</a>
+</footer>
+
+<script src="content.js"></script>
+<script>
+(() => {
+  const FRAME_COUNT = 239;
+  const path = i => `frames-mobile/frame_${String(i).padStart(4, '0')}.jpg`;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const canvas = document.getElementById('seq');
+  const ctx = canvas.getContext('2d');
+  const track = document.getElementById('track');
+  const chapters = [...document.querySelectorAll('.chapter')];
+  const haloCore = document.getElementById('haloCore');
+  const haloDawn = document.getElementById('haloDawn');
+  const pct = document.getElementById('pct');
+  const bar = document.getElementById('bar');
+
+  /* ---- preload ---- */
+  const images = new Array(FRAME_COUNT);
+  let loaded = 0;
+  const loader = document.getElementById('loader');
+  const loadText = document.getElementById('loadText');
+  const done = () => { loader.classList.add('gone'); requestDraw(true); };
+  for (let i = 0; i < FRAME_COUNT; i++) {
+    const img = new Image();
+    img.decoding = 'async';
+    img.src = path(i + 1);
+    img.onload = img.onerror = () => {
+      loaded++;
+      loadText.textContent = Math.round(loaded / FRAME_COUNT * 100) + '%';
+      if (i === 0) requestDraw(true);
+      if (loaded === FRAME_COUNT) done();
+    };
+    images[i] = img;
+  }
+  setTimeout(() => { if (!loader.classList.contains('gone')) done(); }, 5000);
+
+  /* ---- canvas ---- */
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(canvas.clientWidth * dpr);
+    canvas.height = Math.round(canvas.clientHeight * dpr);
+    requestDraw(true);
+  }
+  function nearestLoaded(idx) {
+    for (let d = 0; d < FRAME_COUNT; d++) {
+      const a = images[idx - d], b = images[idx + d];
+      if (a && a.complete && a.naturalWidth) return a;
+      if (b && b.complete && b.naturalWidth) return b;
+    }
+    return null;
+  }
+  function drawFrame(idx) {
+    const img = nearestLoaded(idx);
+    if (!img) return;
+    const cw = canvas.width, ch = canvas.height, iw = img.naturalWidth, ih = img.naturalHeight;
+    // fill the width; keep at least 74% of the screen height
+    const s = Math.max(cw / iw, (ch * 0.74) / ih);
+    const w = iw * s, h = ih * s;
+    ctx.clearRect(0, 0, cw, ch);
+    ctx.drawImage(img, (cw - w) / 2, ch * 0.57 - h / 2, w, h);
+  }
+
+  /* ---- scroll ---- */
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const smooth = t => t * t * (3 - 2 * t);
+  const targetProgress = () => {
+    const r = track.getBoundingClientRect();
+    return clamp(-r.top / (r.height - window.innerHeight), 0, 1);
+  };
+  let current = 0, target = 0, lastIdx = -1, raf = null;
+
+  function render(force) {
+    const p = current;
+    const idx = Math.min(FRAME_COUNT - 1, Math.floor(p * FRAME_COUNT));
+    if (idx !== lastIdx || force) { drawFrame(idx); lastIdx = idx; }
+    chapters.forEach(el => {
+      const a = +el.dataset.from, b = +el.dataset.to;
+      const t = clamp((p - a) / (b - a), 0, 1);
+      const edge = 0.22, first = a === 0, last = b > 1;
+      let o;
+      if (p < a || p > b) o = 0;
+      else if (t < edge) o = first ? 1 : t / edge;
+      else if (t > 1 - edge) o = last ? 1 : (1 - t) / edge;
+      else o = 1;
+      el.style.opacity = smooth(clamp(o, 0, 1));
+      el.style.transform = `translateY(${(0.5 - t) * 16}px)`;
+    });
+    const rise = smooth(clamp((p - 0.18) / 0.4, 0, 1));
+    haloCore.style.opacity = (rise * 0.5).toFixed(3);
+    haloDawn.style.opacity = (0.55 + rise * 0.45).toFixed(3);
+    pct.textContent = Math.round(p * 100);
+    bar.style.height = (p * 100).toFixed(2) + '%';
+  }
+  function tick() {
+    current = reduce ? target : current + (target - current) * 0.16;
+    if (Math.abs(target - current) < 0.0004) current = target;
+    render(false);
+    raf = current !== target ? requestAnimationFrame(tick) : null;
+  }
+  function requestDraw(force) {
+    target = targetProgress();
+    if (force) { current = target; render(true); }
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+  window.addEventListener('scroll', () => requestDraw(false), { passive: true });
+  window.addEventListener('resize', resize);
+  resize();
+
+  /* ---- plan links pre-fill the form ---- */
+  const planSelect = document.getElementById('f-plan');
+  document.addEventListener('click', e => {
+    const a = e.target.closest('[data-plan-link]');
+    if (a && a.dataset.planLink && planSelect.querySelector(`option[value="${CSS.escape(a.dataset.planLink)}"]`)) planSelect.value = a.dataset.planLink;
+  });
+
+  /* ---- pricing carousel (re-reads the cards after content.json fills them) ---- */
+  const planTrack = document.getElementById('planTrack');
+  const prevBtn = document.getElementById('planPrev');
+  const nextBtn = document.getElementById('planNext');
+  const planNow = document.getElementById('planNow');
+  const planBar = document.getElementById('planBar');
+  const planTotal = document.getElementById('planTotal');
+  const cards = () => [...planTrack.children];
+  let planIdx = 0, planRaf = null;
+  function centeredPlan() {
+    const mid = planTrack.scrollLeft + planTrack.clientWidth / 2;
+    let best = 0, dist = Infinity;
+    cards().forEach((el, i) => {
+      const d = Math.abs(el.offsetLeft + el.offsetWidth / 2 - mid);
+      if (d < dist) { dist = d; best = i; }
+    });
+    return best;
+  }
+  function updatePlans() {
+    planRaf = null;
+    const n = cards().length || 1;
+    planIdx = centeredPlan();
+    planTotal.textContent = String(n).padStart(2, '0');
+    planNow.textContent = String(planIdx + 1).padStart(2, '0');
+    prevBtn.disabled = planIdx === 0;
+    nextBtn.disabled = planIdx === n - 1;
+    planBar.style.width = (100 / n) + '%';
+    planBar.style.left = (planIdx / n * 100) + '%';
+  }
+  function goPlan(i) {
+    const list = cards();
+    const el = list[Math.max(0, Math.min(list.length - 1, i))];
+    if (!el) return;
+    planTrack.scrollTo({ left: el.offsetLeft - (planTrack.clientWidth - el.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' });
+  }
+  prevBtn.addEventListener('click', () => goPlan(planIdx - 1));
+  nextBtn.addEventListener('click', () => goPlan(planIdx + 1));
+  planTrack.addEventListener('scroll', () => { if (!planRaf) planRaf = requestAnimationFrame(updatePlans); }, { passive: true });
+  document.addEventListener('content:ready', () => { planTrack.scrollLeft = 0; updatePlans(); });
+  updatePlans();
+
+  /* ---- form ---- */
+  const form = document.getElementById('trialForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const data = Object.fromEntries(new FormData(form));
+    data.time = [...form.querySelectorAll('input[name="time"]:checked')].map(i => i.value);
+    // TODO: 串接表單後台，例如 fetch('你的表單網址', { method:'POST', body: JSON.stringify(data) })
+    console.log('trial request', data);
+    form.classList.add('sent');
+  });
+})();
+</script>
+</body>
+</html>

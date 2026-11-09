@@ -1,0 +1,251 @@
+# Pages CMS 後台設定：定義後台有哪些欄位可以編輯
+# 說明文件：https://pagescms.org/docs/
+
+media:
+  input: images
+  output: /images
+  categories: [image]
+
+content:
+  - name: site
+    label: 網站內容
+    type: file
+    path: content.json
+    format: json
+    fields:
+
+      # ---------------- 開場動畫 ----------------
+      - name: hero
+        label: 開場動畫文字
+        type: object
+        fields:
+          - name: chapters
+            label: 滾動時出現的四段文字
+            description: 依滾動順序出現，請維持 4 段。標題按 Enter 換行。
+            type: object
+            list:
+              min: 4
+              max: 4
+              collapsible:
+                collapsed: true
+                summary: "第 {index} 段：{title}"
+            fields:
+              - name: title
+                label: 標題
+                type: text
+              - name: text
+                label: 說明文字
+                type: string
+
+      # ---------------- 品牌初衷（深藍區塊） ----------------
+      - name: origin
+        label: 品牌初衷（深藍區塊）
+        type: object
+        fields:
+          - name: title
+            label: 金色大標題
+            type: string
+          - name: paragraphs
+            label: 內文段落
+            description: 每一格是一段。段落內按 Enter 可以換行。
+            type: text
+            list: true
+          - name: sign
+            label: 署名
+            type: string
+
+      # ---------------- 為什麼選擇靜湖 ----------------
+      - name: benefits
+        label: 為什麼選擇靜湖
+        type: object
+        fields:
+          - name: title
+            label: 區塊標題
+            type: string
+          - name: intro
+            label: 標題下方說明
+            type: text
+          - name: main
+            label: 大卡片
+            type: object
+            fields:
+              - name: title
+                label: 標題
+                type: string
+              - name: paragraphs
+                label: 段落
+                type: text
+                list: true
+          - name: ph
+            label: pH 值卡片
+            type: object
+            fields:
+              - name: value
+                label: 數值
+                type: string
+              - name: range
+                label: 誤差範圍
+                type: string
+              - name: title
+                label: 標題
+                type: string
+              - name: text
+                label: 說明
+                type: text
+          - name: items
+            label: 三張小卡片
+            description: 版面固定為 3 張。
+            type: object
+            list:
+              min: 3
+              max: 3
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: 標題
+                type: string
+              - name: text
+                label: 說明
+                type: text
+          - name: note
+            label: 飲用提醒（虛線框）
+            type: text
+
+      # ---------------- 價格方案 ----------------
+      - name: pricing
+        label: 價格方案
+        type: object
+        fields:
+          - name: title
+            label: 區塊標題
+            type: string
+          - name: intro
+            label: 標題下方說明
+            type: text
+          - name: plans
+            label: 方案
+            description: 可以新增、刪除或拖曳排序。電腦版右側購買卡片會使用前兩個方案。
+            type: object
+            list:
+              min: 1
+              collapsible:
+                collapsed: true
+                summary: "{name}（{price}）"
+            fields:
+              - name: name
+                label: 方案名稱
+                type: string
+                required: true
+              - name: id
+                label: 方案代號
+                description: 系統用，已有的請不要修改。新增方案時請填英文小寫，例如 family。
+                type: string
+                required: true
+                pattern: "^[a-z0-9-]+$"
+              - name: short
+                label: 簡稱（電腦版購買卡片按鈕用）
+                type: string
+              - name: price
+                label: 價格
+                description: 只填數字（例如 1,200）會自動加上 NT$；也可以填文字，例如「專人報價」。
+                type: string
+              - name: unit
+                label: 計價單位
+                description: 例如：箱、月。不需要可留空。
+                type: string
+              - name: what
+                label: 內容量
+                type: string
+              - name: per
+                label: 價格下方小字
+                type: string
+              - name: features
+                label: 方案特色
+                type: string
+                list: true
+              - name: button
+                label: 按鈕文字
+                type: string
+              - name: tag
+                label: 標籤（例如：最多人選擇）
+                description: 不需要可留空。
+                type: string
+              - name: featured
+                label: 用深色卡片突顯
+                type: boolean
+              - name: image
+                label: 方案照片（選填）
+                description: 建議橫式照片，比例約 4:3。
+                type: image
+
+      # ---------------- 立即體驗 ----------------
+      - name: trial
+        label: 立即體驗（表單區）
+        type: object
+        fields:
+          - name: title
+            label: 標題
+            type: text
+          - name: lead
+            label: 說明
+            type: text
+          - name: steps
+            label: 三個步驟
+            type: object
+            list:
+              min: 3
+              max: 3
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: 步驟名稱
+                type: string
+              - name: text
+                label: 說明
+                type: string
+          - name: successTitle
+            label: 送出成功的標題
+            type: string
+          - name: successText
+            label: 送出成功的說明
+            type: text
+
+      # ---------------- 常見問題 ----------------
+      - name: faq
+        label: 常見問題
+        type: object
+        fields:
+          - name: title
+            label: 區塊標題
+            type: string
+          - name: intro
+            label: 標題下方說明
+            type: string
+          - name: items
+            label: 問答
+            description: 可以新增、刪除或拖曳排序。
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{q}"
+            fields:
+              - name: q
+                label: 問題
+                type: string
+              - name: a
+                label: 回答
+                type: text
+
+      # ---------------- 頁尾 ----------------
+      - name: footer
+        label: 頁尾
+        type: object
+        fields:
+          - name: text
+            label: 頁尾文字
+            type: text
